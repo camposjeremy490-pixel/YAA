@@ -256,7 +256,10 @@ def construir_dataset_demo():
 @st.cache_resource
 def obtener_cliente_groq():
     load_dotenv()
-    api_key = os.getenv("GROQ_API_KEY")
+    # 1. Intenta obtenerla de Streamlit Secrets (Nube)
+    # 2. Si no, intenta obtenerla de las variables de entorno (Local)
+    api_key = st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY")
+
     if not api_key or Groq is None:
         return None
     try:
@@ -267,7 +270,7 @@ def obtener_cliente_groq():
 
 def obtener_analisis_ia(client, equipo_a: str, equipo_b: str, liga: str) -> str:
     completion = client.chat.completions.create(
-        model="openai/gpt-oss-120b",  # Modelo muy rápido
+        model="llama-3.1-70b-versatile",
         messages=[{"role": "user", "content": f"""
     Actúa como un Senior Sports Data Analyst especializado en apuestas deportivas.
 
