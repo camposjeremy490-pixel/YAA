@@ -270,7 +270,7 @@ def obtener_cliente_groq():
 
 def obtener_analisis_ia(client, equipo_a: str, equipo_b: str, liga: str) -> str:
     completion = client.chat.completions.create(
-        model="llama-3.1-70b-versatile",
+        model="openai/gpt-oss-120b",
         messages=[{"role": "user", "content": f"""
     Actúa como un Senior Sports Data Analyst especializado en apuestas deportivas.
 
